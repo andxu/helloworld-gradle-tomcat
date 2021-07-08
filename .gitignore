@@ -4,6 +4,8 @@
 *.class
 *.project
 *.classpath
+.vscode/
+.settings/
 # BlueJ files
 *.ctxt
 

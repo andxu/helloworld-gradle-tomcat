@@ -1,17 +1,19 @@
 buildscript {
     repositories {
-         gradlePluginPortal()
+        mavenLocal()
+        gradlePluginPortal()
     }
 
     dependencies {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.7.0'
+        classpath 'com.microsoft.azure:azure-webapp-gradle-plugin:1.0.0'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'com.bmuschko.tomcat'
-
+apply plugin: "com.microsoft.azure.azurewebapp"
 sourceCompatibility = 1.8
 version = '1.0'
 war {
@@ -42,3 +44,23 @@ tomcat {
 // context where tomcat is deployed, by defautl localhost:8080/
 tomcatRun.contextPath = '/'
 tomcatRunWar.contextPath = '/'
+
+
+azurewebapp {
+    resourceGroup = '<your resource group name>'
+    appName = '<your app name>'
+    pricingTier = 'p1v2'
+    region = 'westus'
+    runtime {
+      os = 'windows'
+      webContainer = 'Tomcat 9.0'
+      javaVersion = 'Java 8'
+    }
+    appSettings {
+        foo = 'bar'
+    }
+
+    // auth {
+    //     type = 'azure-cli'
+    // }
+}
